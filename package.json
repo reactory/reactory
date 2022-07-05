@@ -1,0 +1,51 @@
+{
+  "name": "@reactory/reactory",
+  "description": "Utils for React.",
+  "version": "0.0.0-development",
+  "author": "Richard King <richrdkng@gmail.com> (https://www.richrdkng.com/)",
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactory/reactory.git"
+  },
+  "bugs": {
+    "url": "https://github.com/reactory/reactory/issues"
+  },
+  "homepage": "https://github.com/reactory/reactory#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "keywords": [
+    "util",
+    "utils",
+    "tool",
+    "tools",
+    "react",
+    "reactory"
+  ],
+  "scripts": {
+    "test": "jest",
+    "prep:1": "rm -rf .dist && mkdir .dist",
+    "prep:2": "cp LICENSE* README* package.json .dist",
+    "prep": "npm run prep:1 && npm run prep:2",
+    "build": "tsc --project tsconfig.build.json"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@tsconfig/node14": "^1.0.3",
+    "@types/jest": "^28.1.4",
+    "@types/node": "^18.0.1",
+    "jest": "^28.1.2",
+    "semantic-release": "^19.0.3",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  }
+}
