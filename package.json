@@ -28,6 +28,7 @@
     "reactory"
   ],
   "scripts": {
+    "lint": "tsc --noEmit",
     "test": "jest",
     "prep:1": "rm -rf .dist && mkdir .dist",
     "prep:2": "cp LICENSE* README* package.json .dist",
