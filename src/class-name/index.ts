@@ -1,16 +1,17 @@
 const toString = Object.prototype.toString
 const hasOwnProperty = Object.hasOwnProperty
 
+// TODO: implement empty string handling
 // TODO: handle deep arrays and objects (e.g.: [['string-1', ['string-2']], 'string-3'])
 // TODO: handle deep functions
 
 const parseArrayIntoClassList = (array: any[], classList: string[]) => {
   for (const entry of array) {
     if (typeof entry === 'string') {
-      classList.push(entry)    
+      classList.push(entry)
     } else if (entry && typeof entry === 'object' && entry.length > 0) {
       parseArrayIntoClassList(entry, classList)
-    }    
+    }
   }
 }
 
@@ -25,13 +26,13 @@ const parseArrayIntoClassList = (array: any[], classList: string[]) => {
  * @returns A string containing the processed class(es).
  *          Otherwise undefined, if all and every class is falsy.
  */
-export default (...classes: any[]): string | undefined => {
+export const className = (...classes: any[]): string | undefined => {
   if (classes.length === 0) {
     return
   }
 
   const classList: string[] = []
-  
+
   for (const entry of classes) {
     // handle strings ----------------------------------------------------------
     if (typeof entry === 'string') {
@@ -53,7 +54,7 @@ export default (...classes: any[]): string | undefined => {
           classList.push(key)
         }
       }
-    
+
     // handle functions --------------------------------------------------------
     } else if (typeof entry === 'function') {
       const result = entry()
