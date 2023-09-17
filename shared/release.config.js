@@ -24,11 +24,11 @@ module.exports = {
         'CHANGELOG*'
       ]
     }],
-    // ['@semantic-release/npm', {
-    //   pkgRoot: 'dist'
-    // }],
-    // ['@semantic-release/npm', {
-    //   pkgRoot: 'dist-umd'
-    // }]
+    ['@semantic-release/npm', {
+      pkgRoot: 'dist'
+    }],
+    ['@semantic-release/npm', {
+      pkgRoot: 'dist-umd'
+    }]
   ]
 }
