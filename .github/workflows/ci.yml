@@ -12,7 +12,7 @@ on:
       - feat/*
 
   schedule:
-    - cron: '0 2 * * *' # run every day at 2:00 AM (UTC)
+    - cron: '0 3 * * *' # run every day at 3:00 AM (UTC)
 
 jobs:
   test:
@@ -73,11 +73,13 @@ jobs:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
 
-    # skip the job if it was trigger by Dependabot
-    # skip the job if it's not the main branch
+    # run if it was NOT triggered by Dependabot
+    # and if it IS the main branch
+    # and if it was NOT triggered by schedule
     if: |
-      github.actor != 'dependabot[bot]' ||
-      github.ref == 'refs/heads/main'
+      github.actor != 'dependabot[bot]' &&
+      github.ref == 'refs/heads/main' &&
+      github.event_name != 'schedule'
 
     strategy:
       fail-fast: false
@@ -126,11 +128,13 @@ jobs:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
 
-    # skip the job if it was trigger by Dependabot
-    # skip the job if it's not the main branch
+    # run if it was NOT triggered by Dependabot
+    # and if it IS the main branch
+    # and if it was NOT triggered by schedule
     if: |
-      github.actor != 'dependabot[bot]' ||
-      github.ref == 'refs/heads/main'
+      github.actor != 'dependabot[bot]' &&
+      github.ref == 'refs/heads/main' &&
+      github.event_name != 'schedule'
 
     steps:
       - uses: actions/checkout@v4
