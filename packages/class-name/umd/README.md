@@ -1,0 +1,1 @@
+# @reactory/class-name umd
