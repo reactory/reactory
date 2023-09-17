@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main
+      - feat/*
+
   pull_request:
     branches:
       - main
+      - feat/*
+
   schedule:
     - cron: '0 2 * * *' # run every day at 2:00 AM (UTC)
 
@@ -63,6 +67,45 @@ jobs:
           npx lerna exec --scope ${{ matrix.package }} --
           npm run test:coverage
 
+  coverage:
+    needs: test
+
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+
+    # skip the job if it was trigger by Dependabot
+    # skip the job if it's not the main branch
+    if: |
+      github.actor != 'dependabot[bot]' ||
+      github.ref == 'refs/heads/main'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [
+          '@reactory/class-name',
+          '@reactory/reactory'
+        ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: init
+        run: >
+          npm ci &&
+          npx lerna exec --scope ${{ matrix.package }} --
+          npm ci
+
+      - name: generate coverage
+        run: >
+          npx lerna exec --scope ${{ matrix.package }} --
+          npm run test:coverage
+
       - name: prepare coverage flag
         id: coverage_flag
         run: |
@@ -78,13 +121,16 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   release:
-    needs: test
+    needs: coverage
 
     runs-on: ubuntu-20.04
     timeout-minutes: 10
 
-    # skip the job if the pull request was opened by Dependabot
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    # skip the job if it was trigger by Dependabot
+    # skip the job if it's not the main branch
+    if: |
+      github.actor != 'dependabot[bot]' ||
+      github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
