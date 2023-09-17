@@ -1,0 +1,35 @@
+{
+  "name": "@reactory/reactory-umd",
+  "version": "0.0.0-development",
+  "description": "Manageable, conditional, flexible class names in React.",
+  "author": "Richard King <richrdkng@gmail.com> (https://richrdkng.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactory/reactory.git"
+  },
+  "bugs": {
+    "url": "https://github.com/reactory/reactory/issues"
+  },
+  "homepage": "https://github.com/reactory/reactory/tree/main/packages/reactory#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "keywords": [
+    "react",
+    "css",
+    "class",
+    "classes",
+    "classname",
+    "classnames",
+    "className",
+    "classNames",
+    "class-name",
+    "class-names",
+    "util",
+    "utility",
+    "umd",
+    "reactory"
+  ]
+}
