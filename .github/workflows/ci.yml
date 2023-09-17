@@ -74,13 +74,13 @@ jobs:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
 
-    # run if it was NOT triggered by Dependabot
+    # run if it was NOT triggered by schedule
+    # and if it was NOT triggered by Dependabot
     # and if it IS the main branch
-    # and if it was NOT triggered by schedule
     if: |
+      github.event_name != 'schedule' &&
       github.actor != 'dependabot[bot]' &&
-      github.ref == 'refs/heads/main' &&
-      github.event_name != 'schedule'
+      github.ref == 'refs/heads/main'
 
     strategy:
       fail-fast: false
@@ -129,13 +129,13 @@ jobs:
     runs-on: ubuntu-20.04
     timeout-minutes: 10
 
-    # run if it was NOT triggered by Dependabot
+    # run if it was NOT triggered by schedule
+    # and if it was NOT triggered by Dependabot
     # and if it IS the main branch
-    # and if it was NOT triggered by schedule
     if: |
+      github.event_name != 'schedule' &&
       github.actor != 'dependabot[bot]' &&
-      github.ref == 'refs/heads/main' &&
-      github.event_name != 'schedule'
+      github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v4
