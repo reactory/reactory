@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 2 * * *' # run every day at 2:00 AM (UTC)
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [
+          '@reactory/class-name',
+          '@reactory/reactory'
+        ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: init
+        run: >
+          npm ci &&
+          npx lerna exec --scope ${{ matrix.package }} --
+          npm ci
+
+      - name: check commits
+        if: ${{ !cancelled() }}
+        run: >
+          npx lerna exec --scope ${{ matrix.package }} --
+          npx commitlint
+          --from ${{ github.event.pull_request.base.sha }}
+          --to ${{ github.event.pull_request.head.sha }}
+          --verbose
+
+      - name: check lint
+        if: ${{ !cancelled() }}
+        run: >
+          npx lerna exec --scope ${{ matrix.package }} --
+          npm run check:lint
+
+      - name: check types
+        if: ${{ !cancelled() }}
+        run: >
+          npx lerna exec --scope ${{ matrix.package }} --
+          npm run check:types
+
+      - name: test
+        run: >
+          npx lerna exec --scope ${{ matrix.package }} --
+          npm run test:coverage
+
+  release:
+    needs: test
+
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+
+    # skip the job if the pull request was opened by Dependabot
+    if: ${{ github.actor != 'dependabot[bot]' }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: init
+        run: npm ci && npx lerna exec -- npm ci
+
+      - name: '@reactory/class-name'
+        if: ${{ !cancelled() }}
+        run: bash scripts/release.sh @reactory/class-name
+
+      - name: '@reactory/reactory'
+        if: ${{ !cancelled() }}
+        run: bash scripts/release.sh @reactory/reactory
+
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
