@@ -32,12 +32,11 @@
     "classes",
     "classname",
     "classnames",
-    "className",
-    "classNames",
     "class-name",
     "class-names",
     "util",
     "utility",
+    "helper",
     "reactory"
   ],
   "scripts": {
