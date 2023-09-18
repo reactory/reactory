@@ -44,7 +44,8 @@ module.exports = {
   scopes: [
     { name: 'root' },
     { name: 'class-name' },
-    { name: 'reactory' },
+    { name: 'switch-map' },
+    { name: 'use-force-rerender' },
   ],
   messages: {
     type: 'Select the type of change that you\'re committing',
