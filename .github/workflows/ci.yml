@@ -25,7 +25,7 @@ jobs:
       matrix:
         package: [
           '@reactory/class-name',
-          '@reactory/reactory'
+          '@reactory/switch-map'
         ]
 
     steps:
@@ -88,7 +88,7 @@ jobs:
       matrix:
         package: [
           '@reactory/class-name',
-          '@reactory/reactory'
+          '@reactory/switch-map'
         ]
 
     steps:
@@ -154,9 +154,9 @@ jobs:
         if: ${{ !cancelled() }}
         run: bash scripts/release.sh @reactory/class-name
 
-      - name: '@reactory/reactory'
+      - name: '@reactory/switch-map'
         if: ${{ !cancelled() }}
-        run: bash scripts/release.sh @reactory/reactory
+        run: bash scripts/release.sh @reactory/switch-map
 
     env:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
