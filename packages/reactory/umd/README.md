@@ -1,1 +1,0 @@
-# @reactory/reactory umd
