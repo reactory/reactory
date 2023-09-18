@@ -14,7 +14,6 @@
   "exclude": [
     "node_modules",
     "test",
-    "umd",
     "global.d.ts"
   ]
 }
