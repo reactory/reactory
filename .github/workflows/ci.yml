@@ -25,7 +25,8 @@ jobs:
       matrix:
         package: [
           '@reactory/class-name',
-          '@reactory/switch-map'
+          '@reactory/switch-map',
+          '@reactory/use-force-rerender'
         ]
 
     steps:
@@ -88,7 +89,8 @@ jobs:
       matrix:
         package: [
           '@reactory/class-name',
-          '@reactory/switch-map'
+          '@reactory/switch-map',
+          '@reactory/use-force-rerender'
         ]
 
     steps:
@@ -157,6 +159,10 @@ jobs:
       - name: '@reactory/switch-map'
         if: ${{ !cancelled() }}
         run: bash scripts/release.sh @reactory/switch-map
+
+      - name: '@reactory/use-force-rerender'
+        if: ${{ !cancelled() }}
+        run: bash scripts/release.sh @reactory/use-force-rerender
 
     env:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
