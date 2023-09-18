@@ -1,4 +1,4 @@
-
+// TODO: add .from(...) => { className: ... } => ...className.from(...)
 // TODO: implement deduplication
 // TODO: handle leading dot (e.g.: ".class-name") - like traditional CSS classes
 // TODO: configure - handle returning an empty string (or custom string???), instead of a undefined for no classes
