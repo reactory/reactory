@@ -84,7 +84,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-extended": "^4.0.1",
     "react": "16.9",
-    "react-dom": "16.9",
+    "react-dom": "16.13",
     "rollup": "^3.28.1",
     "semantic-release": "^19.0.5",
     "semantic-release-monorepo": "^7.0.5",
