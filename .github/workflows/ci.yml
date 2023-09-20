@@ -69,11 +69,9 @@ jobs:
 
     # run if it was NOT triggered by schedule
     # and if it was NOT triggered by Dependabot
-    # and if it IS the main branch
     if: |
       github.event_name != 'schedule' &&
-      github.actor != 'dependabot[bot]' &&
-      github.ref == 'refs/heads/main'
+      github.actor != 'dependabot[bot]'
 
     strategy:
       fail-fast: false
